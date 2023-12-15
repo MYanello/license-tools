@@ -1,43 +1,24 @@
 apiVersion: v1 # temporary placeholder
 kind: Service
 metadata:
-  name: busybox-subdomain
+  name: check_avail
 spec:
   selector:
-    name: busybox
+    name: check_avail
   clusterIP: None
   ports:
-  - name: foo # name is not required for single-port Services
-    port: 1234
+  - name:  # name is not required for single-port Services
+    port: 5001
 ---
 apiVersion: v1
 kind: Pod
 metadata:
-  name: busybox1
+  name: check_avail
   labels:
-    name: busybox
+    name: check_avail
 spec:
-  hostname: busybox-1
-  subdomain: busybox-subdomain
+  hostname: check_avail
+  subdomain: check_avail-subdomain
   containers:
-  - image: busybox:1.28
-    command:
-      - sleep
-      - "3600"
-    name: busybox
----
-apiVersion: v1
-kind: Pod
-metadata:
-  name: busybox2
-  labels:
-    name: busybox
-spec:
-  hostname: busybox-2
-  subdomain: busybox-subdomain
-  containers:
-  - image: busybox:1.28
-    command:
-      - sleep
-      - "3600"
-    name: busybox
+  - image: marcusjy/lic-stat-tool
+    name: check_avail
