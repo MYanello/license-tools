@@ -1,0 +1,9 @@
+version: '3.9'
+services:
+  check_avail:
+    container_name: check_avail
+    build:
+        context: ./check_avail
+        dockerfile: Dockerfile
+    ports:
+    - 5001:5001

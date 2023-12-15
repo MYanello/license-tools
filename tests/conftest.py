@@ -2,6 +2,9 @@ import pytest
 import argparse
 from app import main
 
+
+### Example
+
 @pytest.fixture
 def setup(): #setup the application with a small cache size and ttl
     args = argparse.Namespace(redis_host = '127.0.0.1', redis_port = '6379', password = 'rescale', size = 1, ttl = 1)

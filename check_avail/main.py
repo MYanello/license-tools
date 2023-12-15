@@ -10,6 +10,7 @@ app = FastAPI()
 
 @app.put('/hostname')
 def hostname(hostname, ip):
+    print(True)
 
 @app.get('/lmutil')
 def lmutil(port, hostname):

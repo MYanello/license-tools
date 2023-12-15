@@ -1,9 +1,14 @@
-update-docker:
-	docker build -t marcusjy/lic-stat-tool .
+update-avail-docker:
+	docker build -t marcusjy/lic-stat-tool ./check_avail
+
+push-avail-docker: update-docker
 	docker push marcusjy/lic-stat-tool:latest
 
+compose-up:
+	docker compose up
+
 run-docker:
-	docker run -p 5001:5001 marcusjy/lic-stat-tool
+	docker run -t -i --rm -p 5001:5001 --name lictool marcusjy/lic-stat-tool
 
 venv-install:
 	python3 -m venv venv
@@ -16,3 +21,4 @@ run-local:
 	. venv/bin/activate; python3 app/main.py
 
 test: run-local test-install
+	pytest

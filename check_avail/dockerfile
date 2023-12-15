@@ -3,16 +3,17 @@ LABEL maintainer="Marcus Yanello <myanello@rescale.com>"
 
 WORKDIR /opt/
 ADD ./license_utils/*-latest /usr/local/bin
-ADD ./app/ /opt/
+ADD ./main.py /opt/
+ADD ./requirements.txt /opt/
 
 RUN apt update
-RUN apt install lsb-release
+RUN apt install -y lsb-release
+RUN apt clean
 RUN pip3 install --no-cache-dir --upgrade pip
-RUN pip3 install -r app/requirements.txt
+RUN pip3 install -r /opt/requirements.txt
 
 RUN useradd -m vns3-user
 USER vns3-user
-RUN chown vns3-user:vns3-user /etc/hosts
 
 EXPOSE 5001
 CMD ["python3", "main.py"]
