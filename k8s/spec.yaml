@@ -1,24 +1,40 @@
-apiVersion: v1 # temporary placeholder
+apiVersion: v1
 kind: Service
 metadata:
-  name: check_avail
+  name: check-avail
 spec:
   selector:
-    name: check_avail
-  clusterIP: None
+    name: check-avail
   ports:
-  - name:  # name is not required for single-port Services
+  - protocol: TCP  # name is not required for single-port Services
     port: 5001
+    targetPort: 5001
 ---
 apiVersion: v1
 kind: Pod
 metadata:
-  name: check_avail
-  labels:
-    name: check_avail
+  name: check-avail
 spec:
-  hostname: check_avail
-  subdomain: check_avail-subdomain
   containers:
   - image: marcusjy/lic-stat-tool
-    name: check_avail
+    name: check-avail
+    ports:
+    - containerPort: 5001
+# ---
+# apiVersion: v1
+# kind: Ingress
+# metadata:
+#   name: check-avail
+#   annotations:
+#     ingress.kubernetes.io/ssl-redirect: "false"
+# spec:
+#   rules:
+#   - http:
+#       paths:
+#       - path: /
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: nginx
+#             port:
+#               number: 80
