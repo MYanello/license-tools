@@ -6,7 +6,9 @@ The purpose of this tool is to provide pods that enable licensing functionality 
     - [ ] check_avail container respecting dns server
 - [ ] SQS Queue was rec'd for processing the requests 
 - [ ] Nebula pod for vpn
+    - [X] Basic pod created
     - [ ] How to handle certs?
+        - Maybe a separate nebula-cert pod that runs on command and stores certs in enc vol?
 - [ ] License availability tools
 - [ ] Copy the ssh tunnel and ipf code ???
     - [ ] Need to make repo private if so

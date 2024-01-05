@@ -20,10 +20,10 @@ FROM debian:buster
 WORKDIR /app
 
 COPY --from=builder /tmp/nebula .
-COPY nebula_config.yaml config.yaml
+COPY nebula_config.yaml .
 COPY certs/lh.crt /app/certs/lh.crt
 COPY certs/lh.key /app/certs/lh.key
 COPY certs/ca.crt /app/certs/ca.crt
 
 ENTRYPOINT ["/app/nebula"]
-CMD ["-config", "/app/config.yaml"]
+CMD ["-config", "/app/nebula_config.yaml"]
