@@ -21,5 +21,9 @@ WORKDIR /app
 
 COPY --from=builder /tmp/nebula .
 COPY nebula_config.yaml config.yaml
+COPY certs/lh.crt /app/certs/lh.crt
+COPY certs/lh.key /app/certs/lh.key
+COPY certs/ca.crt /app/certs/ca.crt
 
-CMD ["/app/nebula", "-config", "/app/config.yaml"]
+ENTRYPOINT ["/app/nebula"]
+CMD ["-config", "/app/config.yaml"]
