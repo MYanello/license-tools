@@ -1,8 +1,14 @@
 update-avail-docker:
 	docker build -t marcusjy/lic-stat-tool ./check_avail
 
-push-avail-docker: update-docker
+push-avail-docker: update-avail-docker
 	docker push marcusjy/lic-stat-tool:latest
+
+update-nebula-docker:
+	docker build -t nebula ./nebula
+
+push-nebula-docker: update-nebula-docker
+	docker push marcusjy/nebula:latest
 
 compose-up:
 	docker compose up
@@ -22,3 +28,4 @@ run-local:
 
 test: run-local test-install
 	pytest
+

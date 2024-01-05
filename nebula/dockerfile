@@ -1,0 +1,27 @@
+# syntax = docker/dockerfile:1.1-experimental
+# NOTE: `sudo` don't work here!
+FROM --platform=${BUILDPLATFORM} debian:buster as builder
+
+ARG TARGETARCH
+ARG TARGETOS
+ARG NEBULA_VERSION=v1.4.0
+
+WORKDIR /tmp
+
+RUN apt-get update && \
+  apt-get -y install wget && \
+  NEBULA_ARCHIVE=nebula-$TARGETOS-$TARGETARCH.tar.gz && \
+  wget https://github.com/slackhq/nebula/releases/download/$NEBULA_VERSION/$NEBULA_ARCHIVE && \
+  tar -xvf $NEBULA_ARCHIVE && \
+  rm -rf $NEBULA_ARCHIVE \
+    ./nebula-cert \
+    /var/lib/apt/lists/*
+
+FROM debian:buster
+
+WORKDIR /app
+
+COPY --from=builder /tmp/nebula .
+COPY nebula_config.yaml config.yaml
+
+CMD ["/app/nebula", "-config", "/app/config.yaml"]
