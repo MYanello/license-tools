@@ -1,1 +1,3 @@
 venv
+nebula/certs/*
+!nebula/certs/nebula-cert
