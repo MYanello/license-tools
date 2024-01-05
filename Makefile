@@ -1,14 +1,14 @@
-update-avail-docker:
+build-avail-docker:
 	docker build -t marcusjy/lic-stat-tool ./check_avail
 
-push-avail-docker: update-avail-docker
+push-avail-docker: build-avail-docker
 	docker push marcusjy/lic-stat-tool:latest
 
-update-nebula-docker:
+build-nebula-docker:
 	docker build -t nebula ./nebula
 
-push-nebula-docker: update-nebula-docker
-	docker push marcusjy/nebula:latest
+#push-nebula-docker: build-nebula-docker #don't run this without first building without the certs
+#docker push marcusjy/nebula:latest
 
 compose-up:
 	docker compose up
