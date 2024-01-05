@@ -1,10 +1,8 @@
-# syntax = docker/dockerfile:1.1-experimental
-# NOTE: `sudo` don't work here!
 FROM --platform=${BUILDPLATFORM} debian:buster as builder
 
 ARG TARGETARCH
 ARG TARGETOS
-ARG NEBULA_VERSION=v1.4.0
+ARG NEBULA_VERSION=v1.8.0
 
 WORKDIR /tmp
 
