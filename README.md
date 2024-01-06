@@ -4,6 +4,7 @@ The purpose of this tool is to provide pods that enable licensing functionality 
 - [ ] Hostname resolution - dns
     - [ ] Programmatic hostname addition
     - [ ] check_avail container respecting dns server
+    - Maybe the nebula stuff can be required for all networks and that can handle dns?
 - [ ] SQS Queue was rec'd for processing the requests 
 - [ ] Nebula pod for vpn
     - [ ] Basic pod nebula pod created
