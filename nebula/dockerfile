@@ -1,4 +1,4 @@
-FROM --platform=${BUILDPLATFORM} debian:buster as builder
+FROM --platform=${BUILDPLATFORM} debian:bookworm as builder
 
 ARG TARGETARCH
 ARG TARGETOS
@@ -15,15 +15,11 @@ RUN apt-get update && \
     ./nebula-cert \
     /var/lib/apt/lists/*
 
-FROM debian:buster
+FROM debian:bookworm
 
 WORKDIR /app
 
 COPY --from=builder /tmp/nebula .
-COPY nebula_config.yaml .
-COPY certs/lh.crt /app/certs/lh.crt
-COPY certs/lh.key /app/certs/lh.key
-COPY certs/ca.crt /app/certs/ca.crt
 
 ENTRYPOINT ["/app/nebula"]
 CMD ["-config", "/app/nebula_config.yaml"]

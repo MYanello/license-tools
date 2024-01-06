@@ -1,0 +1,9 @@
+version: '3.9'
+services:
+  nebula-cert:
+    container_name: nebula-cert
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+    - ./certs:/app/certs
