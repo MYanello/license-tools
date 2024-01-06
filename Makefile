@@ -7,8 +7,21 @@ push-avail-docker: build-avail-docker
 build-nebula-docker:
 	docker build -t nebula ./nebula
 
-#push-nebula-docker: build-nebula-docker #don't run this without first building without the certs
-#docker push marcusjy/nebula:latest
+push-nebula-docker: build-nebula-docker 
+	docker push marcusjy/nebula-cert:latest
+
+build-nebula-cert-docker:
+	docker build -t nebula-cert ./nebula-cert
+
+create-host-cert: build-nebula-cert-docker
+	docker run -v ./nebula-cert/certs:/app/ nebula-cert ca -name "Test org"
+
+create-client-cert: build-nebula-cert-docker
+	docker run -v ./nebula-cert/certs:/app/ nebula-cert sign -name "test client" -ip "192.168.100.1/24"
+
+
+push-nebula-cert-docker: build-nebula-cert-docker 
+	docker push marcusjy/nebula-cert:latest
 
 compose-up:
 	docker compose up
