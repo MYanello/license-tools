@@ -13,3 +13,6 @@ spec:
         - "-name"
         - "Test org"
       restartPolicy: Never
+      volumes:
+      - name: nebula-storage
+          claimName: nebula-pvc
