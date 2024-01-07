@@ -11,6 +11,7 @@ The purpose of this tool is to provide pods that enable licensing functionality 
     - [ ] Separate cert pod to handle creating certificates
         - [X] Separate cert container created
         - [ ] How to handle encrypted volume shared with nebula-cert and nebula pod?
+        - [ ] set this pod as a job
 - [ ] License availability tools
 
 # Sources
