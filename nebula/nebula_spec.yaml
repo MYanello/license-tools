@@ -44,27 +44,25 @@ spec:
 apiVersion: v1
 kind: Pod
 metadata:
-  name: lighthouse
-  labels:
-    app: nebula-core
+  name: nebula-core
 spec:
   containers:
-  - image: marcusjy/lic-stat-tool
-    name: check-avail
+  - image: marcusjy/nebula-core
+    name: nebula-core
     ports:
     - containerPort: 4242
+  volumes:
+  - name: nebula-storage
+      claimName: nebula-pvc
 ---
 apiVersion: v1
 kind: Pod #change this to be a job
 metadata:
   name: nebula-cert
-  labels:
-    app: nebula-cert
 spec:
   containers:
   - image: marcusjy/nebula-cert
     name: nebula-cert
   volumes:
-  - name: nebula-cert-vol
-    secret:
-      secretName: cert-enc-key
+  - name: nebula-storage
+      claimName: nebula-pvc

@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Job
+metadata:
+  name: nebula-cert-ca
+spec:
+  containers:
+  - image: marcusjy/nebula-cert 
+    name: nebula-cert-ca
+    command:
+    - "ca"
+    - "-name"
+    - "Test org"
+  restartPolicy: Never

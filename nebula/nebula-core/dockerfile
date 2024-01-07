@@ -1,7 +1,7 @@
 FROM --platform=${BUILDPLATFORM} debian:bookworm as builder
 
-ARG TARGETARCH
-ARG TARGETOS
+ARG TARGETARCH=arm64
+ARG TARGETOS=linux
 ARG NEBULA_VERSION=v1.8.0
 
 WORKDIR /tmp
@@ -14,6 +14,7 @@ RUN apt-get update && \
   rm -rf $NEBULA_ARCHIVE \
     ./nebula-cert \
     /var/lib/apt/lists/*
+
 
 FROM debian:bookworm
 

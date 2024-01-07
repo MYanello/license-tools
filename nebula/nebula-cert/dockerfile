@@ -1,8 +1,8 @@
 FROM --platform=${BUILDPLATFORM} debian:bookworm as builder
 LABEL maintainer="Marcus Yanello <myanello@rescale.com>"
 
-ARG TARGETARCH
-ARG TARGETOS
+ARG TARGETARCH=arm64
+ARG TARGETOS=linux
 ARG NEBULA_VERSION=v1.8.0
 
 WORKDIR /tmp
@@ -14,7 +14,8 @@ RUN apt-get update && \
   tar -xvf $NEBULA_ARCHIVE && \
   rm -rf $NEBULA_ARCHIVE \
     ./nebula \
-    /var/lib/apt/lists/*
+    /var/lib/apt/lists/* && \
+  chmod +x nebula-cert
 
 FROM debian:bookworm
 
