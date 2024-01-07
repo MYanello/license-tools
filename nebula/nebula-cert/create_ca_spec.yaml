@@ -3,11 +3,13 @@ kind: Job
 metadata:
   name: nebula-cert-ca
 spec:
-  containers:
-  - image: marcusjy/nebula-cert 
-    name: nebula-cert-ca
-    command:
-    - "ca"
-    - "-name"
-    - "Test org"
-  restartPolicy: Never
+  template:
+    spec:
+      containers:
+      - image: marcusjy/nebula-cert 
+        name: nebula-cert
+        command:
+        - "ca"
+        - "-name"
+        - "Test org"
+      restartPolicy: Never
