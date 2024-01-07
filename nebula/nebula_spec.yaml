@@ -1,10 +1,41 @@
 apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: nebula-pv
+spec:
+  capacity:
+    storage: 10Gi
+  volumeMode: Filesystem
+  accessModes:
+    - ReadWriteMany
+  persistentVolumeReclaimPolicy: Recycle
+  storageClassName: nfs
+  mountOptions:
+    - hard
+    - nfsvers=4.1
+  nfs:
+    path: /nfs/k8s/nebula
+    server: 192.168.1.18
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: nebula-pvc
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 10Gi
+---
+apiVersion: v1
 kind: Service
 metadata:
-  name: lighthouse
+  name: nebula-core
 spec:
   selector:
-    name: lighthouse
+    name: nebula-core
   ports:
   - protocol: UDP
     port: 4242
@@ -15,7 +46,7 @@ kind: Pod
 metadata:
   name: lighthouse
   labels:
-    app: nebula
+    app: nebula-core
 spec:
   replicas: 1
   containers:
@@ -25,7 +56,7 @@ spec:
     - containerPort: 4242
 ---
 apiVersion: v1
-kind: Pod
+kind: Pod #change this to be a job
 metadata:
   name: nebula-cert
   labels:
