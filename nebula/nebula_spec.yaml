@@ -48,7 +48,6 @@ metadata:
   labels:
     app: nebula-core
 spec:
-  replicas: 1
   containers:
   - image: marcusjy/lic-stat-tool
     name: check-avail
@@ -62,7 +61,6 @@ metadata:
   labels:
     app: nebula-cert
 spec:
-  replicas: 1
   containers:
   - image: marcusjy/nebula-cert
     name: nebula-cert
