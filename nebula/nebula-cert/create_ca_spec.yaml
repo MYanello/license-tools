@@ -15,4 +15,4 @@ spec:
       restartPolicy: Never
       volumes:
       - name: nebula-storage
-        claimName: nebula-pvc
+          claimName: nebula-pvc
