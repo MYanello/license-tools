@@ -9,13 +9,14 @@ spec:
       - image: marcusjy/nebula
         name: nebula-cert-ca
         command:
-        - "nebula-cert"
-        args:
-        - "ca"
-        - "-name"
-        - "Test org"
+        - ["nebula-cert"]
+        args: ["ca", "-name", "test"]
+        volumeMounts:
+        - name: nebula-storage
+          mountPath: "/app"
       restartPolicy: Never
       volumes:
       - name: nebula-storage
         persistentVolumeClaim:
           claimName: nebula-pvc
+      

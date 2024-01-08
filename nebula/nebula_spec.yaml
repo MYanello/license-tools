@@ -51,9 +51,13 @@ spec:
     name: nebula-core
     ports:
     - containerPort: 4242
+    volumeMounts:
+    - name: nebula-storage
+      mountPath: "/app"
   volumes:
   - name: nebula-storage
       claimName: nebula-pvc
+    
 ---
 apiVersion: v1
 kind: Pod #change this to be a job
