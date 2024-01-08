@@ -1,4 +1,5 @@
 FROM --platform=${BUILDPLATFORM} debian:bookworm as builder
+LABEL maintainer="Marcus Yanello <myanello@rescale.com>"
 
 ARG TARGETARCH=arm64
 ARG TARGETOS=linux
@@ -11,16 +12,15 @@ RUN apt-get update && \
   NEBULA_ARCHIVE=nebula-$TARGETOS-$TARGETARCH.tar.gz && \
   wget https://github.com/slackhq/nebula/releases/download/$NEBULA_VERSION/$NEBULA_ARCHIVE && \
   tar -xvf $NEBULA_ARCHIVE && \
-  rm -rf $NEBULA_ARCHIVE \
-    ./nebula-cert \
-    /var/lib/apt/lists/*
-
+  rm -rf $NEBULA_ARCHIVE /var/lib/apt/lists/* && \
+  chmod +x nebula-cert && \
+  chmod +x nebula
 
 FROM debian:bookworm
 
 WORKDIR /app
 
-COPY --from=builder /tmp/nebula .
+COPY --from=builder /tmp/nebula-cert /usr/bin/nebula-cert
+COPY --from=builder /tmp/nebula /usr/bin/nebula
 
-ENTRYPOINT ["/app/nebula"]
-CMD ["-config", "/app/nebula_config.yaml"]
+ENTRYPOINT [ "/bin/bash", "-l", "-c" ]

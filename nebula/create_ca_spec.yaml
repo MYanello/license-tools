@@ -6,9 +6,11 @@ spec:
   template:
     spec:
       containers:
-      - image: marcusjy/nebula-cert 
-        name: nebula-cert
+      - image: marcusjy/nebula
+        name: nebula-cert-ca
         command:
+        - "nebula-cert"
+        args:
         - "ca"
         - "-name"
         - "Test org"
