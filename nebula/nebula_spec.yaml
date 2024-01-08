@@ -15,7 +15,7 @@ spec:
     - nfsvers=4.1
   nfs:
     path: /nfs/k8s/nebula
-    server: 192.168.1.18
+    server: marcus-server.lan
 ---
 apiVersion: v1
 kind: PersistentVolumeClaim
