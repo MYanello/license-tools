@@ -8,8 +8,7 @@ spec:
       containers:
       - image: marcusjy/nebula
         name: nebula-cert-ca
-        command:
-        - ["nebula-cert"]
+        command: ["nebula-cert"]
         args: ["ca", "-name", "test"]
         volumeMounts:
         - name: nebula-storage
