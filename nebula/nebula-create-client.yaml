@@ -1,0 +1,20 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: nebula-cert-client
+spec:
+  template:
+    spec:
+      containers:
+      - image: marcusjy/nebula
+        name: nebula-cert-client
+        command: ["nebula-cert"]
+        args: ["sign", "-name", "test", "-ip", "192.168.110.1/24"]
+        volumeMounts:
+        - name: nebula-storage
+          mountPath: "/app"
+      restartPolicy: Never
+      volumes:
+      - name: nebula-storage
+        persistentVolumeClaim:
+          claimName: nebula-pvc
