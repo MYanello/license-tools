@@ -1,0 +1,42 @@
+
+apiVersion: argoproj.io/v1alpha1
+kind: ApplicationSet
+metadata:
+  name: datadog
+spec:
+  generators:
+    - git:
+        repoURL: git@github.com:marcusjy/license-tools.git
+        revision: "main"
+        files:
+          - path: "nebula/nebula-create-ca.yaml"
+  template:
+    metadata:
+      name: "nebula-create-ca-{{org}}"
+    spec:
+      project: nebula
+      syncPolicy:
+        automated:
+          prune: true
+          selfHeal: true
+        syncOptions:
+          - CreateNamespace=true
+      destination:
+        name: "{{destination}}"
+        namespace: nebula
+      # source:
+      #   repoURL: "https://raw.githubusercontent.com/rescale/rescale-cicd/main/helm-charts" #not found? was in the yaml I based this off
+      #   targetRevision: "{{version}}"
+      #   chart: nebula
+      #   helm:
+      #     parameters:
+      #       - name: datadog.apiKeyExistingSecret
+      #         value: datadog-secret
+      #       - name: datadog.appKeyExistingSecret
+      #         value: datadog-secret
+      #       - name: clusterAgent.enabled
+      #         value: "true"
+      #       - name: clusterAgent.metricsProvider.enabled
+      #         value: "true"
+      #     values: |
+      #       {{values}}
